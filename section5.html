@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universitas Atmajaya — Bergabung</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#060E20;--blue:#0A1D45;--gold:#C9A84C;--gold2:#EDD98A;--cream:#F0EBE1;--muted:rgba(240,235,225,.58);--border:rgba(201,168,76,.22)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+/* ── HOVER NAV ── */
+.hnav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(6,14,32,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 6vw;height:66px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.hnav.show{transform:translateY(0)}
+.hnav-logo{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold);letter-spacing:.05em;white-space:nowrap}
+.hnav-links{display:flex;gap:2.4rem;list-style:none}
+.hnav-links a{color:var(--cream);text-decoration:none;font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.6;transition:opacity .2s,color .2s;position:relative;padding-bottom:3px}
+.hnav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.hnav-links a:hover,.hnav-links a.cur{opacity:1;color:var(--gold)}
+.hnav-links a:hover::after,.hnav-links a.cur::after{transform:scaleX(1)}
+
+/* ── PAGE HEADER ── */
+.page-hero{position:relative;height:70vh;min-height:480px;display:flex;align-items:flex-end;padding:0 6vw 5rem;overflow:hidden}
+.ph-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1920&q=80') center/cover no-repeat;filter:brightness(.2) saturate(.8)}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,14,32,1) 0%,rgba(6,14,32,.3) 60%,transparent 100%)}
+.ph-content{position:relative;z-index:1;max-width:800px}
+.ph-num{font-family:'Playfair Display',serif;font-size:7rem;font-weight:700;color:var(--gold);opacity:.12;line-height:1;margin-bottom:-1.5rem;user-select:none}
+.ph-tag{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;animation:fadeUp .6s ease both}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1.1;animation:fadeUp .8s ease .1s both}
+.ph-h1 em{color:var(--gold);font-style:italic;font-weight:400}
+.ph-sub{font-size:1rem;color:var(--muted);margin-top:1rem;max-width:560px;line-height:1.7;animation:fadeUp .9s ease .2s both}
+
+/* ── MAIN CONTENT ── */
+.main-content{max-width:1200px;margin:0 auto;padding:7rem 6vw}
+
+/* QR + CTA HERO BLOCK */
+.join-hero{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center;margin-bottom:8rem}
+.jh-left .tag{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.jh-left h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,3rem);font-weight:700;line-height:1.2;margin-bottom:1.8rem}
+.jh-left h2 em{color:var(--gold);font-style:italic}
+.jh-left p{font-size:.95rem;line-height:1.9;color:var(--muted);margin-bottom:2.5rem}
+.cta-group{display:flex;flex-direction:column;gap:1rem;align-items:flex-start}
+.btn-cta-primary{display:inline-flex;align-items:center;gap:.7rem;background:var(--gold);color:var(--navy);text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;transition:all .3s;width:fit-content}
+.btn-cta-primary:hover{background:var(--gold2);transform:translateX(4px)}
+.btn-cta-secondary{display:inline-flex;align-items:center;gap:.7rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:1rem 2.2rem;transition:all .3s;width:fit-content}
+.btn-cta-secondary:hover{border-color:var(--gold);color:var(--gold)}
+
+.jh-right{display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.qr-frame{border:1px solid var(--border);padding:2rem;background:var(--blue);display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+.qr-frame img{width:200px;height:200px;display:block}
+.qr-label{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-align:center}
+.qr-url{font-size:.82rem;color:var(--gold);text-decoration:none;letter-spacing:.03em}
+.qr-url:hover{text-decoration:underline}
+
+/* STEPS */
+.steps-section{margin-bottom:8rem}
+.sh-tag{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.sh-h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;line-height:1.25;margin-bottom:3.5rem}
+.sh-rule{width:48px;height:1px;background:var(--gold);margin:1.5rem 0 3.5rem}
+
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.step-card{background:var(--navy);padding:2.2rem 1.8rem;transition:background .3s;position:relative}
+.step-card:hover{background:rgba(201,168,76,.05)}
+.step-n{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--gold);opacity:.15;line-height:1;margin-bottom:.8rem}
+.step-ttl{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;margin-bottom:.8rem;line-height:1.3}
+.step-dsc{font-size:.82rem;color:var(--muted);line-height:1.65}
+
+/* CONTACT GRID */
+.contact-section{margin-bottom:8rem}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.contact-card{background:var(--navy);padding:2.2rem;display:flex;flex-direction:column;gap:.7rem;transition:background .3s}
+.contact-card:hover{background:rgba(201,168,76,.05)}
+.cc-icon{font-size:1.6rem}
+.cc-ttl{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.cc-val{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;line-height:1.3}
+.cc-dsc{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+/* FINAL CTA BAND */
+.final-cta{background:var(--blue);border:1px solid var(--border);padding:5rem;text-align:center;position:relative;overflow:hidden;margin-bottom:4rem}
+.final-cta::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 50% 50%, rgba(201,168,76,.06) 0%, transparent 60%);pointer-events:none}
+.final-cta-tag{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+.final-cta h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1.2;margin-bottom:1.5rem}
+.final-cta h2 em{color:var(--gold);font-style:italic}
+.final-cta p{font-size:.98rem;color:var(--muted);max-width:550px;margin:0 auto 3rem;line-height:1.8}
+.final-btns{display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap}
+
+/* BOTTOM NAV */
+.bottom-nav{display:flex;align-items:center;justify-content:space-between;padding:4rem 0 2rem;border-top:1px solid var(--border);margin-top:2rem}
+.bn-pos{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.5rem;transition:all .3s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.nav-group{display:flex;gap:1rem}
+
+/* FOOTER */
+footer{padding:3rem 6vw;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.75rem;letter-spacing:.05em}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.26s}.d3{transition-delay:.4s}.d4{transition-delay:.56s}
+</style>
+</head>
+<body>
+
+<nav class="hnav" id="hnav">
+  <div class="hnav-logo">Universitas Atmajaya</div>
+  <ul class="hnav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="section2.html">Keunggulan Akademik</a></li>
+    <li><a href="section3.html">Fasilitas Kampus</a></li>
+    <li><a href="section4.html">Prestasi &amp; Alumni</a></li>
+    <li><a href="section5.html" class="cur">Bergabung</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="ph-img"></div>
+  <div class="ph-overlay"></div>
+  <div class="ph-content">
+    <div class="ph-num">04</div>
+    <div class="ph-tag">Mulai Perjalananmu</div>
+    <h1 class="ph-h1">Bergabung <em>Bersama</em> Kami</h1>
+    <p class="ph-sub">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Langkah pertamamu menuju masa depan yang gemilang dimulai dari sini.</p>
+  </div>
+</header>
+
+<main class="main-content">
+
+  <!-- QR + CTA BLOCK -->
+  <div class="join-hero rev">
+    <div class="jh-left">
+      <div class="tag">Pendaftaran Mahasiswa Baru</div>
+      <h2>Scan &amp; Daftarkan <em>Dirimu</em> Sekarang</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <div class="cta-group">
+        <a href="#" class="btn-cta-primary">Daftar Online Sekarang →</a>
+        <a href="#" class="btn-cta-secondary">Unduh Brosur Pendaftaran</a>
+      </div>
+    </div>
+    <div class="jh-right">
+      <div class="qr-frame">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.atmajaya.ac.id&color=C9A84C&bgcolor=0A1D45&margin=10" alt="QR Code Pendaftaran">
+        <div class="qr-label">Scan untuk mendaftar</div>
+        <a href="https://www.atmajaya.ac.id" target="_blank" class="qr-url">www.atmajaya.ac.id</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps-section rev">
+    <div class="sh-tag">Cara Mendaftar</div>
+    <h2 class="sh-h2">Lorem Ipsum Dolor<br>Langkah Pendaftaran</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-n">01</div>
+        <div class="step-ttl">Lorem Ipsum Registrasi</div>
+        <p class="step-dsc">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna veniam.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-n">02</div>
+        <div class="step-ttl">Dolor Sit Dokumen</div>
+        <p class="step-dsc">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat aute irure.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-n">03</div>
+        <div class="step-ttl">Amet Consectetur Seleksi</div>
+        <p class="step-dsc">Voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-n">04</div>
+        <div class="step-ttl">Adipiscing Elit Diterima</div>
+        <p class="step-dsc">Sunt in culpa qui officia deserunt mollit anim id est laborum sed perspiciatis unde omnis.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-section rev">
+    <div class="sh-tag">Hubungi Kami</div>
+    <h2 class="sh-h2">Lorem Ipsum<br>Kontak Kami</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="cc-icon">📍</div>
+        <div class="cc-ttl">Alamat</div>
+        <div class="cc-val">Jl. Lorem Ipsum No. 1<br>Jakarta, Indonesia</div>
+        <p class="cc-dsc">Dolor sit amet, consectetur adipiscing elit sed do eiusmod.</p>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">📞</div>
+        <div class="cc-ttl">Telepon &amp; Email</div>
+        <div class="cc-val">+62 21 000 0000</div>
+        <p class="cc-dsc">Lorem ipsum dolor sit amet consectetur adipiscing elit eiusmod tempor.</p>
+      </div>
+      <div class="contact-card">
+        <div class="cc-icon">🌐</div>
+        <div class="cc-ttl">Website &amp; Sosmed</div>
+        <div class="cc-val">www.atmajaya.ac.id</div>
+        <p class="cc-dsc">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua veniam.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA BAND -->
+  <div class="final-cta rev">
+    <div class="final-cta-tag">Bergabung Sekarang</div>
+    <h2>Lorem Ipsum <em>Masa Depan</em><br>Dimulai di Sini</h2>
+    <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi.</p>
+    <div class="final-btns">
+      <a href="#" class="btn-cta-primary">Daftar Sekarang →</a>
+      <a href="index.html" class="btn-cta-secondary">← Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <div class="nav-group">
+      <a href="index.html" class="btn-ghost">← Beranda</a>
+      <a href="section4.html" class="btn-ghost">← Prestasi</a>
+    </div>
+    <span class="bn-pos">05 / 05</span>
+    <span style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)">✦ Selesai</span>
+  </nav>
+
+</main>
+
+<footer>
+  <span>© 2025 Universitas Atmajaya Jakarta</span>
+  <span style="color:var(--gold)">Educating for Excellence</span>
+</footer>
+
+<script>
+const nav=document.getElementById('hnav');
+let hideT;
+const showNav=()=>{clearTimeout(hideT);nav.classList.add('show')};
+const delayHide=()=>{clearTimeout(hideT);hideT=setTimeout(()=>nav.classList.remove('show'),1900)};
+document.addEventListener('mousemove',e=>{if(e.clientY<80)showNav();else if(!nav.matches(':hover'))delayHide()});
+nav.addEventListener('mouseenter',showNav);
+nav.addEventListener('mouseleave',delayHide);
+const ro=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
