@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unika Atma Jaya — Keunggulan Akademik</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* CSS styles (sama persis dengan file aslinya) */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#060E20;--blue:#0A1D45;--gold:#C9A84C;--gold2:#EDD98A;--cream:#F0EBE1;--muted:rgba(240,235,225,.58);--border:rgba(201,168,76,.22)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.hnav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(6,14,32,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 6vw;height:66px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.hnav.show{transform:translateY(0)}
+.hnav-brand{display:flex;align-items:center;gap:1.2rem}
+.portal-link{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.65;text-decoration:none;padding-right:1.2rem;border-right:1px solid var(--border);transition:opacity .2s;white-space:nowrap}
+.portal-link:hover{opacity:1}
+.hnav-logo{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold);letter-spacing:.05em;white-space:nowrap}
+.hnav-links{display:flex;gap:2.4rem;list-style:none}
+.hnav-links a{color:var(--cream);text-decoration:none;font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.6;transition:opacity .2s,color .2s;position:relative;padding-bottom:3px}
+.hnav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.hnav-links a:hover,.hnav-links a.cur{opacity:1;color:var(--gold)}
+.hnav-links a:hover::after,.hnav-links a.cur::after{transform:scaleX(1)}
+.page-hero{position:relative;height:70vh;min-height:480px;display:flex;align-items:flex-end;padding:0 6vw 5rem;overflow:hidden}
+.ph-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1920&q=80') center/cover no-repeat;filter:brightness(.22) saturate(.8)}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,14,32,1) 0%,rgba(6,14,32,.3) 60%,transparent 100%)}
+.ph-content{position:relative;z-index:1;max-width:800px}
+.ph-num{font-family:'Playfair Display',serif;font-size:7rem;font-weight:700;color:var(--gold);opacity:.12;line-height:1;margin-bottom:-1.5rem;user-select:none}
+.ph-tag{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;animation:fadeUp .6s ease both}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1.1;animation:fadeUp .8s ease .1s both}
+.ph-h1 em{color:var(--gold);font-style:italic;font-weight:400}
+.ph-sub{font-size:1rem;color:var(--muted);margin-top:1rem;max-width:560px;line-height:1.7;animation:fadeUp .9s ease .2s both}
+.main-content{max-width:1200px;margin:0 auto;padding:7rem 6vw}
+.cb{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;margin-bottom:8rem}
+.cb.alt{direction:rtl}.cb.alt>*{direction:ltr}
+.cb-label{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.cb-h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;line-height:1.25;margin-bottom:1.5rem}
+.cb-rule{width:48px;height:1px;background:var(--gold);margin-bottom:1.8rem}
+.cb-p{font-size:.95rem;line-height:1.9;color:var(--muted)}
+.cb-p+.cb-p{margin-top:1rem}
+.cb-img-wrap{position:relative;overflow:hidden}
+.cb-img-wrap img{width:100%;height:380px;object-fit:cover;display:block;filter:brightness(.85) saturate(.9);transition:transform .6s ease}
+.cb-img-wrap:hover img{transform:scale(1.04)}
+.cb-img-wrap::after{content:'';position:absolute;inset:0;border:1px solid var(--border)}
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:8rem}
+.prog-card{background:var(--navy);padding:2rem 1.8rem;transition:background .3s}
+.prog-card:hover{background:rgba(201,168,76,.06)}
+.pc-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);font-weight:700;line-height:1;margin-bottom:1rem}
+.pc-ttl{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:.8rem;line-height:1.3}
+.pc-desc{font-size:.82rem;color:var(--muted);line-height:1.65}
+.accred-section{background:var(--blue);border:1px solid var(--border);padding:4rem;margin-bottom:8rem;display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:center}
+.accred-big{font-family:'Playfair Display',serif;font-size:5rem;font-weight:700;color:var(--gold);line-height:1}
+.accred-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.5rem}
+.badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.badge{border:1px solid var(--border);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem}
+.badge-icon{font-size:1.5rem}
+.badge-text{font-size:.82rem;color:var(--muted);line-height:1.5}
+.badge-text strong{color:var(--cream);display:block;font-size:.88rem;margin-bottom:.2rem}
+.bottom-nav{display:flex;align-items:center;justify-content:space-between;padding:4rem 0 2rem;border-top:1px solid var(--border);margin-top:2rem}
+.bn-pos{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.5rem;transition:all .3s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-solid{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--navy);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.8rem;transition:all .3s}
+.btn-solid:hover{background:var(--gold2)}
+.nav-group{display:flex;gap:1rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.36s}.d4{transition-delay:.5s}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:900px){.prog-grid {grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .hnav{transform:none!important;height:auto;min-height:58px;padding:.85rem 1.2rem;flex-wrap:wrap}
+  .hnav-links{display:none!important;width:100%;flex-direction:column;gap:0;padding:.5rem 0 .3rem;border-top:1px solid var(--border);margin-top:.75rem}
+  .hnav-links.mob-open{display:flex!important}
+  .hnav-links a{display:block;padding:.75rem .2rem;font-size:.75rem}
+  .page-hero{height:52vh;min-height:320px;padding:0 1.5rem 3rem}
+  .ph-num{font-size:4rem;margin-bottom:-1rem}
+  .ph-h1{font-size:clamp(1.8rem,7vw,2.8rem)!important}
+  .main-content{padding:4rem 1.5rem}
+  .cb, .prog-grid, .accred-section {grid-template-columns:1fr!important; gap:2.5rem; direction:ltr!important}
+  .cb.alt, .cb.alt > * {direction:ltr!important}
+  .accred-section {padding:2.5rem 1.5rem}
+  .badge-grid {grid-template-columns:1fr}
+  .bottom-nav{flex-direction:column;gap:1.5rem;align-items:stretch;padding:3rem 0 2rem}
+  .nav-group{flex-wrap:wrap; justify-content:center}
+  .btn-ghost,.btn-solid{justify-content:center;text-align:center;width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav class="hnav" id="hnav">
+  <div class="hnav-brand">
+    <a href="atma_home.html" class="portal-link">← Portal</a>
+    <span class="hnav-logo">Unika Atma Jaya</span>
+  </div>
+  <ul class="hnav-links">
+    <li><a href="atma_home.html">Beranda</a></li>
+    <li><a href="section2.html" class="cur">Keunggulan Akademik</a></li>
+    <li><a href="section3.html">Fasilitas Kampus</a></li>
+    <li><a href="section5.html">Bergabung</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="ph-img"></div>
+  <div class="ph-overlay"></div>
+  <div class="ph-content">
+    <div class="ph-num">01</div>
+    <div class="ph-tag">Keunggulan Kami</div>
+    <h1 class="ph-h1">Keunggulan <em>Akademik</em></h1>
+    <p class="ph-sub">Berbagai keunggulan akademik kami dirancang untuk menciptakan pengalaman belajar yang berkualitas, relevan, dan berdaya saing global.</p>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="cb rev">
+    <div>
+      <div class="cb-label">Program Unggulan</div>
+      <h2 class="cb-h2">Pengembangan Potensi<br>Mahasiswa</h2>
+      <div class="cb-rule"></div>
+      <p class="cb-p">Unika Atma Jaya mengadakan berbagai program unggulan untuk mendukung pengembangan potensi mahasiswa secara akademik maupun profesional. Melalui pendekatan pembelajaran yang inovatif dan berorientasi pada kebutuhan zaman, mahasiswa memperoleh kesempatan untuk mengembangkan kompetensi yang relevan dengan tantangan masa depan.</p>
+      <p class="cb-p">Didukung oleh kolaborasi dengan berbagai mitra nasional dan internasional, program-program tersebut menjadi bagian dari komitmen Atma Jaya dalam menciptakan pengalaman belajar yang bermakna, memperluas wawasan, serta mempersiapkan lulusan yang unggul, adaptif, dan berdaya saing global.</p>
+    </div>
+    <div class="cb-img-wrap rev d1">
+      <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=900&q=80" alt="Program Studi">
+    </div>
+  </div>
+
+  <div class="prog-grid rev">
+    <div class="prog-card">
+      <div class="pc-num">40+</div>
+      <div class="pc-ttl">Program Studi</div>
+      <p class="pc-desc">Pilihan program studi yang beragam dan adaptif terhadap perkembangan ilmu pengetahuan serta kebutuhan dunia kerja.</p>
+    </div>
+    <div class="prog-card">
+      <div class="pc-num">6</div>
+      <div class="pc-ttl">Fakultas</div>
+      <p class="pc-desc">Enam fakultas yang mendukung pendidikan berkualitas di berbagai disiplin ilmu.</p>
+    </div>
+    <div class="prog-card">
+      <div class="pc-num">1K+</div>
+      <div class="pc-ttl">Mitra Industri</div>
+      <p class="pc-desc">Jaringan kemitraan luas yang membuka peluang kolaborasi, magang, dan pengembangan karier mahasiswa.</p>
+    </div>
+  </div>
+
+  <div class="cb alt rev">
+    <div>
+      <div class="cb-label">Kurikulum</div>
+      <h2 class="cb-h2">Adaptif &amp;<br>Relevan</h2>
+      <div class="cb-rule"></div>
+      <p class="cb-p">Di Unika Atma Jaya, kurikulum dirancang untuk mengintegrasikan keunggulan akademik, pengembangan karakter, dan kebutuhan dunia profesional. Melalui pendekatan pembelajaran yang adaptif, mahasiswa dibekali dengan pengetahuan, keterampilan, dan pengalaman yang relevan dengan perkembangan zaman.</p>
+      <p class="cb-p">Selain menekankan penguasaan bidang ilmu, kurikulum Atma Jaya juga mendorong kemampuan berpikir kritis, kolaborasi, kreativitas, dan kepemimpinan. Dengan demikian, lulusan tidak hanya siap menghadapi tantangan dunia kerja, tetapi juga mampu memberikan kontribusi positif bagi masyarakat.</p>
+    </div>
+    <div class="cb-img-wrap rev d1">
+      <img src="https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=900&q=80" alt="Kurikulum">
+    </div>
+  </div>
+
+  <div class="accred-section rev">
+    <div>
+      <div class="accred-big">A</div>
+      <div class="accred-label">Akreditasi BAN-PT</div>
+    </div>
+    <div class="badge-grid">
+      <div class="badge"><span class="badge-icon">🏆</span><div class="badge-text"><strong>Juara 1 Anugerah Diktisaintek 2025</strong>Meraih juara 1 pada kategori Pembelajaran Internasional.</div></div>
+      <div class="badge"><span class="badge-icon">🌐</span><div class="badge-text"><strong>Pengakuan Internasional</strong>Menjalin jejaring akademik global melalui kerja sama dan pertukaran mahasiswa.</div></div>
+      <div class="badge"><span class="badge-icon">📚</span><div class="badge-text"><strong>Prodi Terakreditasi Unggul</strong>Berbagai prodi yang meraih predikat Unggul dari BAN-PT dan LAM.</div></div>
+      <div class="badge"><span class="badge-icon">⭐</span><div class="badge-text"><strong>PTS #2 Terbaik Indonesia</strong>Termasuk peringkat ke-2 Perguruan Tinggi Swasta terbaik di Indonesia.</div></div>
+    </div>
+  </div>
+
+  <div class="cb rev">
+    <div>
+      <div class="cb-label">Tenaga Pengajar</div>
+      <h2 class="cb-h2">Dosen Berpengalaman<br>dan Profesional</h2>
+      <div class="cb-rule"></div>
+      <p class="cb-p">Didukung oleh akademisi dan praktisi profesional dengan keahlian multidisiplin, Atma Jaya menghadirkan proses pembelajaran yang inovatif, relevan, dan berorientasi pada masa depan.</p>
+      <p class="cb-p">Para dosen aktif dalam penelitian, publikasi ilmiah, serta berbagai kolaborasi akademik untuk memastikan mahasiswa memperoleh wawasan yang sesuai dengan perkembangan dunia kerja dan kebutuhan masyarakat.</p>
+    </div>
+    <div class="cb-img-wrap rev d1">
+      <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&q=80" alt="Tenaga Pengajar">
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-group">
+      <a href="index.html" class="btn-ghost">← Portal</a>
+      <a href="atma_home.html" class="btn-ghost">← Beranda</a>
+    </div>
+    <span class="bn-pos">02 / 04</span>
+    <a href="section3.html" class="btn-solid">Fasilitas Kampus →</a>
+  </nav>
+</main>
+
+<script>
+const nav=document.getElementById('hnav');
+let hideT;
+const showNav=()=>{clearTimeout(hideT);nav.classList.add('show')};
+const delayHide=()=>{clearTimeout(hideT);hideT=setTimeout(()=>nav.classList.remove('show'),1900)};
+document.addEventListener('mousemove',e=>{if(e.clientY<80)showNav();else if(!nav.matches(':hover'))delayHide()});
+nav.addEventListener('mouseenter',showNav);
+nav.addEventListener('mouseleave',delayHide);
+const ro=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>

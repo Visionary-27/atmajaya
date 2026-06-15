@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unika Atma Jaya — Fasilitas Kampus</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* CSS styles (sama persis dengan file aslinya) */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#060E20;--blue:#0A1D45;--gold:#C9A84C;--gold2:#EDD98A;--cream:#F0EBE1;--muted:rgba(240,235,225,.58);--border:rgba(201,168,76,.22)}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.hnav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(6,14,32,.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 6vw;height:66px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.hnav.show{transform:translateY(0)}
+.hnav-brand{display:flex;align-items:center;gap:1.2rem}
+.portal-link{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.65;text-decoration:none;padding-right:1.2rem;border-right:1px solid var(--border);transition:opacity .2s;white-space:nowrap}
+.portal-link:hover{opacity:1}
+.hnav-logo{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--gold);letter-spacing:.05em;white-space:nowrap}
+.hnav-links{display:flex;gap:2.4rem;list-style:none}
+.hnav-links a{color:var(--cream);text-decoration:none;font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.6;transition:opacity .2s,color .2s;position:relative;padding-bottom:3px}
+.hnav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.hnav-links a:hover,.hnav-links a.cur{opacity:1;color:var(--gold)}
+.hnav-links a:hover::after,.hnav-links a.cur::after{transform:scaleX(1)}
+.page-hero{position:relative;height:70vh;min-height:480px;display:flex;align-items:flex-end;padding:0 6vw 5rem;overflow:hidden}
+.ph-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1920&q=80') center/cover no-repeat;filter:brightness(.2) saturate(.8)}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,14,32,1) 0%,rgba(6,14,32,.3) 60%,transparent 100%)}
+.ph-content{position:relative;z-index:1;max-width:800px}
+.ph-num{font-family:'Playfair Display',serif;font-size:7rem;font-weight:700;color:var(--gold);opacity:.12;line-height:1;margin-bottom:-1.5rem;user-select:none}
+.ph-tag{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;animation:fadeUp .6s ease both}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1.1;animation:fadeUp .8s ease .1s both}
+.ph-h1 em{color:var(--gold);font-style:italic;font-weight:400}
+.ph-sub{font-size:1rem;color:var(--muted);margin-top:1rem;max-width:560px;line-height:1.7;animation:fadeUp .9s ease .2s both}
+.main-content{max-width:1200px;margin:0 auto;padding:7rem 6vw}
+.fac-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:8rem}
+.fac-card{background:var(--navy);overflow:hidden;position:relative;cursor:default;transition:background .3s}
+.fac-card:hover{background:rgba(201,168,76,.04)}
+.fac-img{width:100%;height:220px;object-fit:cover;display:block;filter:brightness(.7) saturate(.8);transition:transform .5s ease,filter .5s ease}
+.fac-card:hover .fac-img{transform:scale(1.05);filter:brightness(.85)}
+.fac-body{padding:1.8rem}
+.fac-icon{font-size:1.4rem;margin-bottom:.8rem}
+.fac-ttl{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:.7rem;line-height:1.3}
+.fac-dsc{font-size:.82rem;color:var(--muted);line-height:1.65}
+.cb{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;margin-bottom:8rem}
+.cb.alt{direction:rtl}.cb.alt>*{direction:ltr}
+.cb-label{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.cb-h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;line-height:1.25;margin-bottom:1.5rem}
+.cb-rule{width:48px;height:1px;background:var(--gold);margin-bottom:1.8rem}
+.cb-p{font-size:.95rem;line-height:1.9;color:var(--muted)}
+.cb-p+.cb-p{margin-top:1rem}
+.cb-img-wrap{position:relative;overflow:hidden}
+.cb-img-wrap img{width:100%;height:380px;object-fit:cover;display:block;filter:brightness(.85);transition:transform .6s ease}
+.cb-img-wrap:hover img{transform:scale(1.04)}
+.cb-img-wrap::after{content:'';position:absolute;inset:0;border:1px solid var(--border)}
+.feat-list{list-style:none;margin-top:2rem;display:flex;flex-direction:column;gap:.9rem}
+.feat-list li{display:flex;align-items:flex-start;gap:.9rem;font-size:.88rem;color:var(--muted);line-height:1.6}
+.feat-list li::before{content:'◆';color:var(--gold);font-size:.5rem;margin-top:.45rem;flex-shrink:0}
+.panorama{position:relative;height:420px;overflow:hidden;margin-bottom:8rem}
+.panorama img{width:100%;height:100%;object-fit:cover;filter:brightness(.4) saturate(.7)}
+.panorama-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,14,32,.7) 0%,rgba(10,29,69,.4) 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem}
+.pan-text{max-width:800px}
+.pan-quote{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2rem);font-style:italic;color:var(--cream);line-height:1.4;margin-bottom:1.5rem}
+.pan-attr{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.bottom-nav{display:flex;align-items:center;justify-content:space-between;padding:4rem 0 2rem;border-top:1px solid var(--border);margin-top:2rem}
+.bn-pos{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.5rem;transition:all .3s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-solid{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--navy);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.8rem;transition:all .3s}
+.btn-solid:hover{background:var(--gold2)}
+.nav-group{display:flex;gap:1rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.26s}.d3{transition-delay:.4s}.d4{transition-delay:.56s}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:900px){.fac-grid {grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .hnav{transform:none!important;height:auto;min-height:58px;padding:.85rem 1.2rem;flex-wrap:wrap}
+  .hnav-links{display:none!important;width:100%;flex-direction:column;gap:0;padding:.5rem 0 .3rem;border-top:1px solid var(--border);margin-top:.75rem}
+  .hnav-links.mob-open{display:flex!important}
+  .hnav-links a{display:block;padding:.75rem .2rem;font-size:.75rem}
+  .page-hero{height:52vh;min-height:320px;padding:0 1.5rem 3rem}
+  .ph-num{font-size:4rem;margin-bottom:-1rem}
+  .ph-h1{font-size:clamp(1.8rem,7vw,2.8rem)!important}
+  .main-content{padding:4rem 1.5rem}
+  .cb, .fac-grid {grid-template-columns:1fr!important; gap:2.5rem; direction:ltr!important}
+  .cb.alt, .cb.alt > * {direction:ltr!important}
+  .panorama {height: 300px}
+  .panorama-overlay {padding: 1.5rem}
+  .bottom-nav{flex-direction:column;gap:1.5rem;align-items:stretch;padding:3rem 0 2rem}
+  .nav-group{flex-wrap:wrap; justify-content:center}
+  .btn-ghost,.btn-solid{justify-content:center;text-align:center;width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav class="hnav" id="hnav">
+  <div class="hnav-brand">
+    <a href="index.html" class="portal-link">← Portal</a>
+    <span class="hnav-logo">Unika Atma Jaya</span>
+  </div>
+  <ul class="hnav-links">
+    <li><a href="atma_home.html">Beranda</a></li>
+    <li><a href="section2.html">Keunggulan Akademik</a></li>
+    <li><a href="section3.html" class="cur">Fasilitas Kampus</a></li>
+    <li><a href="section5.html">Bergabung</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="ph-img"></div>
+  <div class="ph-overlay"></div>
+  <div class="ph-content">
+    <div class="ph-num">02</div>
+    <div class="ph-tag">Infrastruktur Kami</div>
+    <h1 class="ph-h1">Fasilitas <em>Kampus</em></h1>
+    <p class="ph-sub">Unika Atma Jaya menyediakan berbagai fasilitas modern untuk mendukung proses pembelajaran, inovasi, penelitian, serta pengembangan potensi mahasiswa.</p>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="fac-grid rev">
+    <div class="fac-card">
+      <img class="fac-img" src="atma_perpustakaan.png" alt="Perpustakaan">
+      <div class="fac-body">
+        <div class="fac-icon">📚</div>
+        <div class="fac-ttl">Perpustakaan</div>
+        <p class="fac-dsc">Perpustakaan berlantai tiga yang menjadi pusat pengambilan referensi dan kegiatan diskusi mahasiswa.</p>
+      </div>
+    </div>
+    <div class="fac-card">
+      <img class="fac-img" src="atma_aula.jpeg" alt="Aula">
+      <div class="fac-body">
+        <div class="fac-icon">🏢</div>
+        <div class="fac-ttl">Aula</div>
+        <p class="fac-dsc">Aula sebagai pusat kegiatan, peristiwa, dan interaksi bagi mahasiswa dalam kehidupan kampus.</p>
+      </div>
+    </div>
+    <div class="fac-card">
+      <img class="fac-img" src="atma_sport.jpg" alt="Sporthall">
+      <div class="fac-body">
+        <div class="fac-icon">🏃</div>
+        <div class="fac-ttl">Sporthall</div>
+        <p class="fac-dsc">Sebuah lapangan yang menaungi pusat aktivitas olahraga bagi mahasiswa.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cb rev">
+    <div>
+      <div class="cb-label">Infrastruktur Lab</div>
+      <h2 class="cb-h2">Laboratorium</h2>
+      <div class="cb-rule"></div>
+      <p class="cb-p">Unika Atma Jaya menyediakan fasilitas laboratorium sesuai dengan fakultas yang memerlukannya.</p>
+      <ul class="feat-list">
+        <li>Laboratorium Komputer</li>
+        <li>Laboratorium Teknik</li>
+        <li>Laboratorium PGSD</li>
+        <li>Laboratorium Peradilan Semu</li>
+      </ul>
+    </div>
+    <div class="cb-img-wrap rev d1">
+      <img src="atma_lab.jpg" alt="Laboratorium">
+    </div>
+  </div>
+
+  <div class="panorama rev">
+    <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1920&q=80" alt="Kampus">
+    <div class="panorama-overlay">
+      <div class="pan-text">
+        <p class="pan-quote">"Sebuah universitas Katolik harus menjadi misionaris dengan pintu menghadap ke luar, mengingat misi adalah inspirasi, dorongan, kekuatan dan amal seluruh Gereja."</p>
+        <div class="pan-attr">— Paus Fransiskus, Uskup Roma</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cb alt rev">
+    <div>
+      <div class="cb-label">Pusat Spiritualitas</div>
+      <h2 class="cb-h2">Kapel Atma Jaya</h2>
+      <div class="cb-rule"></div>
+      <p class="cb-p">Unika Atma Jaya menyediakan tempat doa, refleksi, dan pusat peribadatan bagi umat Katolik di lingkungan kampus Unika Atma Jaya.</p>
+      <p class="cb-p">Kapel Atma Jaya menjadi ruang yang tenang dan nyaman bagi mahasiswa, dosen, tenaga kependidikan, serta seluruh warga akademik untuk memperdalam iman, menemukan ketenangan batin, dan membangun relasi yang lebih dekat dengan Tuhan di tengah dinamika kehidupan akademik.</p>
+    </div>
+    <div class="cb-img-wrap rev d1">
+      <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=900&q=80" alt="Riset">
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-group">
+      <a href="index.html" class="btn-ghost">← Portal</a>
+      <a href="atma_home.html" class="btn-ghost">← Beranda</a>
+      <a href="section2.html" class="btn-ghost">← Akademik</a>
+    </div>
+    <span class="bn-pos">03 / 04</span>
+    <a href="section5.html" class="btn-solid">Bergabung →</a>
+  </nav>
+</main>
+
+<script>
+const nav=document.getElementById('hnav');
+let hideT;
+const showNav=()=>{clearTimeout(hideT);nav.classList.add('show')};
+const delayHide=()=>{clearTimeout(hideT);hideT=setTimeout(()=>nav.classList.remove('show'),1900)};
+document.addEventListener('mousemove',e=>{if(e.clientY<80)showNav();else if(!nav.matches(':hover'))delayHide()});
+nav.addEventListener('mouseenter',showNav);
+nav.addEventListener('mouseleave',delayHide);
+const ro=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
