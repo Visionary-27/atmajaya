@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anti-Car Urbanism — Misconceptions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#ffffff;--blue:#f2f8f5;--gold:#1b8a44;--gold2:#146b34;--cream:#0c1f13;--muted:rgba(12,31,19,0.65);--border:rgba(27,138,68,0.25);--green:#1b8a44;--red:#d32f2f}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+/* ── HOVER NAV ── */
+.hnav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 5vw;height:66px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.hnav.show{transform:translateY(0)}
+.hnav-brand{display:flex;align-items:center;gap:1.2rem}
+.portal-link{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;opacity:.8;text-decoration:none;padding-right:1.2rem;border-right:1px solid var(--border);transition:opacity .2s;white-space:nowrap}
+.portal-link:hover{opacity:1}
+.hnav-logo{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--gold);letter-spacing:.05em;white-space:nowrap}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.45rem;background:none;border:none;flex-shrink:0;outline:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:transform .3s,opacity .3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+.hnav-links{display:flex;gap:2rem;list-style:none}
+.hnav-links a{color:var(--cream);text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;opacity:.6;transition:opacity .2s,color .2s;position:relative;padding-bottom:3px}
+.hnav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.hnav-links a:hover,.hnav-links a.cur{opacity:1;color:var(--gold)}
+.hnav-links a:hover::after,.hnav-links a.cur::after{transform:scaleX(1)}
+
+/* ── PAGE HERO ── */
+.page-hero{position:relative;height:70vh;min-height:460px;display:flex;align-items:flex-end;padding:0 6vw 5rem;overflow:hidden}
+.ph-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&q=80') center/cover no-repeat;filter:brightness(0.95) saturate(0.6)}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(255,255,255,1) 0%,rgba(255,255,255,.8) 50%,transparent 100%)}
+.ph-content{position:relative;z-index:1;max-width:800px}
+.ph-num{font-family:'Playfair Display',serif;font-size:7rem;font-weight:700;color:var(--gold);opacity:.15;line-height:1;margin-bottom:-1.5rem;user-select:none}
+.ph-tag{font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;animation:fadeUp .6s ease both}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1.1;animation:fadeUp .8s ease .1s both;color:var(--cream)}
+.ph-h1 em{color:var(--gold);font-style:italic;font-weight:400}
+.ph-sub{font-size:1rem;color:var(--muted);margin-top:1rem;max-width:600px;line-height:1.7;animation:fadeUp .9s ease .2s both}
+
+/* ── MAIN ── */
+.main-wrap{max-width:1100px;margin:0 auto;padding:8rem 6vw}
+
+.section-intro{margin-bottom:5rem}
+.si-tag{font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.si-h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:600;line-height:1.25;margin-bottom:1.5rem}
+.si-rule{width:48px;height:2px;background:var(--gold);margin-bottom:1.5rem}
+.si-p{font-size:.9rem;color:var(--muted);line-height:1.85;max-width:680px}
+
+/* MISCONCEPTION CARD */
+.mc-list{display:flex;flex-direction:column;gap:2px;background:var(--border)}
+.mc-card{background:var(--navy);overflow:hidden;transition:background .3s}
+.mc-card:hover{background:rgba(242,248,245,1)}
+
+/* CARD TOGGLE BEHAVIOR */
+.mc-card-inner{display:grid;grid-template-columns:1fr 1fr;min-height:0;transition:min-height .4s}
+
+/* MITOS SIDE */
+.mc-mitos{padding:2.5rem 3rem;border-right:1px solid var(--border);position:relative;background:var(--navy)}
+.mc-mitos::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:rgba(211,47,47,.6)}
+.badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;padding:.28rem .8rem;margin-bottom:1.2rem;font-weight:700}
+.badge-mitos{background:rgba(211,47,47,.08);border:1px solid rgba(211,47,47,.3);color:#d32f2f}
+.badge-fakta{background:rgba(27,138,68,.08);border:1px solid rgba(27,138,68,.3);color:#1b8a44}
+.mc-num{font-family:'Playfair Display',serif;font-size:4rem;font-weight:700;color:var(--red);opacity:.1;line-height:1;position:absolute;top:1.5rem;right:2rem}
+.mc-myth-text{font-family:'Playfair Display',serif;font-size:1.25rem;font-style:italic;color:var(--cream);line-height:1.5}
+.mc-myth-text::before{content:'"'}
+.mc-myth-text::after{content:'"'}
+
+/* FAKTA SIDE */
+.mc-fakta{padding:2.5rem 3rem;position:relative;background:var(--blue)}
+.mc-fakta::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:rgba(27,138,68,.6)}
+.mc-fact-text{font-size:.92rem;color:var(--cream);line-height:1.85}
+.mc-fact-text strong{color:var(--gold)}
+.mc-arrow{position:absolute;top:50%;left:-18px;transform:translateY(-50%);width:36px;height:36px;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.9rem;z-index:2;border-radius:50%}
+
+/* BOTTOM NAV */
+.bottom-nav{display:flex;align-items:center;justify-content:space-between;padding:5rem 0 2rem;border-top:1px solid var(--border);margin-top:4rem}
+.bn-pos{font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.5rem;transition:all .3s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-solid{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:#ffffff;text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.8rem;transition:all .3s}
+.btn-solid:hover{background:var(--gold2)}
+.nav-group{display:flex;gap:1rem}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.26s}.d3{transition-delay:.4s}
+
+/* ══════════ MOBILE RESPONSIVE ══════════ */
+@media(max-width:900px){.hnav-links{gap:1.5rem}}
+@media(max-width:768px){
+  .hnav{transform:none!important;height:auto;min-height:58px;padding:.85rem 1.2rem;flex-wrap:wrap}
+  .hnav-brand{flex:1;min-width:0}
+  .hamburger{display:flex!important}
+  .hnav-links{display:none!important;width:100%;flex-direction:column;gap:0;padding:.5rem 0 .3rem;border-top:1px solid var(--border);margin-top:.75rem}
+  .hnav-links.mob-open{display:flex!important}
+  .hnav-links li{border-bottom:1px solid rgba(27,138,68,.12);width:100%}
+  .hnav-links a{display:block;padding:.75rem .2rem;opacity:.75;font-size:.75rem}
+  .hnav-links a::after{display:none}
+  .hnav-links a.cur{opacity:1;color:var(--gold)}
+  .page-hero{height:52vh;min-height:320px;padding:0 1.5rem 3rem}
+  .ph-num{font-size:4rem;margin-bottom:-1rem}
+  .ph-h1{font-size:clamp(1.8rem,7vw,2.8rem)!important}
+  
+  .main-wrap {padding: 4rem 1.5rem}
+  .mc-card-inner {grid-template-columns: 1fr}
+  .mc-fakta {padding: 2.5rem 1.5rem 2.5rem 2rem}
+  .mc-mitos {padding: 2.5rem 1.5rem 2.5rem 2rem; border-right: none; border-bottom: 1px solid var(--border)}
+  
+  .mc-arrow {
+    top: -18px; left: 50%; transform: translateX(-50%) rotate(90deg);
+    border-top: none; border-bottom: none; 
+    border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+    border-radius: 0;
+  }
+  .mc-num {font-size: 3rem; top: 1rem; right: 1rem}
+
+  .bottom-nav{flex-direction:column;gap:1.5rem;align-items:stretch;padding:3rem 0 2rem}
+  .nav-group{flex-wrap:wrap;justify-content:center}
+  .btn-ghost,.btn-solid{justify-content:center;text-align:center;width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav class="hnav" id="hnav">
+  <div class="hnav-brand">
+    <a href="index.html" class="portal-link">← Portal</a>
+    <span class="hnav-logo">Anti-Car Urbanism</span>
+  </div>
+  <button id="hamburger" class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="hnav-links">
+    <li><a href="anticar_home.html">Beranda</a></li>
+    <li><a href="anticar_sejarah.html">Sejarah</a></li>
+    <li><a href="anticar_misconceptions.html" class="cur">Misconceptions</a></li>
+    <li><a href="anticar_manfaat.html">Manfaat</a></li>
+    <li><a href="anticar_aplikasi.html">Aplikasi</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="ph-img"></div>
+  <div class="ph-overlay"></div>
+  <div class="ph-content">
+    <div class="ph-num">02</div>
+    <div class="ph-tag">Meluruskan Fakta</div>
+    <h1 class="ph-h1"><em>Misconceptions</em></h1>
+    <p class="ph-sub">Ada banyak kesalahpahaman umum yang beredar tentang perencanaan kota. Di sini, kita membongkar setiap mitos satu per satu dengan fakta dan data.</p>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <div class="section-intro rev">
+    <div class="si-tag">Lima Mitos Terbesar</div>
+    <h2 class="si-h2">Apa yang Sering<br>Dipercaya vs Realita</h2>
+    <div class="si-rule"></div>
+    <p class="si-p">Banyak argumen yang menentang perencanaan kota anti-mobil didasarkan pada asumsi yang keliru. Berikut adalah lima kesalahpahaman yang paling sering ditemukan — beserta realitanya.</p>
+  </div>
+
+  <div class="mc-list rev d1">
+    <div class="mc-card">
+      <div class="mc-card-inner">
+        <div class="mc-mitos">
+          <div class="mc-num">01</div>
+          <span class="badge badge-mitos">✕ Mitos</span>
+          <p class="mc-myth-text">Penambahan jalanan akan mengatasi kemacetan.</p>
+        </div>
+        <div class="mc-fakta">
+          <div class="mc-arrow">→</div>
+          <span class="badge badge-fakta">✓ Realita</span>
+          <p class="mc-fact-text">Sebaliknya yang terjadi. Fenomena ini disebut <strong>Induced Demand</strong> — semakin banyak jalur jalanan tersedia, semakin banyak orang memilih menggunakan mobil, sehingga kemacetan justru bertambah. Menambah kapasitas jalan tidak menyelesaikan masalah; ia hanya memindahkan masalah ke masa depan sambil menciptakan lebih banyak polusi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-card-inner">
+        <div class="mc-mitos">
+          <div class="mc-num">02</div>
+          <span class="badge badge-mitos">✕ Mitos</span>
+          <p class="mc-myth-text">Densitas tidak begitu penting dalam perencanaan kota.</p>
+        </div>
+        <div class="mc-fakta">
+          <div class="mc-arrow">→</div>
+          <span class="badge badge-fakta">✓ Realita</span>
+          <p class="mc-fact-text">Densitas adalah fondasi dari kota yang berfungsi baik. Tempat dengan <strong>densitas tinggi</strong> memiliki akses fasilitas umum yang lebih baik, mendukung UMKM lokal dengan lebih banyak pelanggan, mendorong efisiensi infrastruktur (biaya per kapita lebih rendah), serta menghasilkan produktivitas ekonomi yang jauh lebih tinggi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-card-inner">
+        <div class="mc-mitos">
+          <div class="mc-num">03</div>
+          <span class="badge badge-mitos">✕ Mitos</span>
+          <p class="mc-myth-text">Jalan kaki dan bersepeda tidak mungkin dilakukan dalam cuaca buruk.</p>
+        </div>
+        <div class="mc-fakta">
+          <div class="mc-arrow">→</div>
+          <span class="badge badge-fakta">✓ Realita</span>
+          <p class="mc-fact-text">Jalan kaki dan bersepeda <strong>tetap dapat dilakukan dalam cuaca buruk</strong> — kuncinya adalah infrastruktur yang memadai. Ini mencakup: trotoar dan jalur sepeda yang terlindungi, kanopi pohon yang menyediakan keteduhan, halte beratap, dan sistem drainase yang baik.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-card-inner">
+        <div class="mc-mitos">
+          <div class="mc-num">04</div>
+          <span class="badge badge-mitos">✕ Mitos</span>
+          <p class="mc-myth-text">Jalur busway sebaiknya untuk mobil karena selalu terlihat kosong.</p>
+        </div>
+        <div class="mc-fakta">
+          <div class="mc-arrow">→</div>
+          <span class="badge badge-fakta">✓ Realita</span>
+          <p class="mc-fact-text">Kosongnya jalur busway justru merupakan tanda keberhasilan. Jalur yang kosong menandakan bahwa <strong>sistem bus berjalan efektif dan tepat waktu</strong> — bus dapat melaju tanpa hambatan. Jika jalur busway diisi mobil, bus akan terjebak macet dan penumpangnya akan beralih kembali ke mobil pribadi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-card">
+      <div class="mc-card-inner">
+        <div class="mc-mitos">
+          <div class="mc-num">05</div>
+          <span class="badge badge-mitos">✕ Mitos</span>
+          <p class="mc-myth-text">Menggunakan mobil lebih murah karena tidak perlu bayar tarif angkutan.</p>
+        </div>
+        <div class="mc-fakta">
+          <div class="mc-arrow">→</div>
+          <span class="badge badge-fakta">✓ Realita</span>
+          <p class="mc-fact-text">Penggunaan mobil jauh lebih mahal dari yang terlihat. Ada banyak <strong>biaya tersembunyi</strong> yang sering tidak diperhitungkan: tarif tol, parkir, bensin, pajak kendaraan, biaya perawatan, asuransi, dan depresiasi nilai aset. Jumlahnya bisa mencapai puluhan juta rupiah per tahun.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-group">
+      <a href="index.html" class="btn-ghost">← Portal</a>
+      <a href="anticar_sejarah.html" class="btn-ghost">← Sejarah</a>
+    </div>
+    <span class="bn-pos">02 / 04 · Misconceptions</span>
+    <a href="anticar_manfaat.html" class="btn-solid">Manfaat →</a>
+  </nav>
+
+</main>
+
+<script>
+const nav=document.getElementById('hnav');
+let hideT;
+const showNav=()=>{clearTimeout(hideT);nav.classList.add('show')};
+const delayHide=()=>{clearTimeout(hideT);hideT=setTimeout(()=>nav.classList.remove('show'),1900)};
+document.addEventListener('mousemove',e=>{if(e.clientY<80)showNav();else if(!nav.matches(':hover'))delayHide()});
+nav.addEventListener('mouseenter',showNav);
+nav.addEventListener('mouseleave',delayHide);
+
+const ham=document.getElementById('hamburger');
+if(ham){ham.addEventListener('click',function(){nav.querySelector('.hnav-links').classList.toggle('mob-open');ham.classList.toggle('active');nav.classList.add('show')});}
+function syncNav(){nav.classList.toggle('show',window.innerWidth<=768);}
+syncNav();window.addEventListener('resize',syncNav);
+
+const ro=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>

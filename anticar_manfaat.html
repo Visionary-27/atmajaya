@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anti-Car Urbanism — Manfaat</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#ffffff;--blue:#f2f8f5;--gold:#1b8a44;--gold2:#146b34;--cream:#0c1f13;--muted:rgba(12,31,19,0.65);--border:rgba(27,138,68,0.25);--green:#1b8a44;}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+/* ── HOVER NAV ── */
+.hnav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 5vw;height:66px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.hnav.show{transform:translateY(0)}
+.hnav-brand{display:flex;align-items:center;gap:1.2rem}
+.portal-link{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;opacity:.8;text-decoration:none;padding-right:1.2rem;border-right:1px solid var(--border);transition:opacity .2s;white-space:nowrap}
+.portal-link:hover{opacity:1}
+.hnav-logo{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--gold);letter-spacing:.05em;white-space:nowrap}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.45rem;background:none;border:none;flex-shrink:0;outline:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:transform .3s,opacity .3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+.hnav-links{display:flex;gap:2rem;list-style:none}
+.hnav-links a{color:var(--cream);text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;opacity:.6;transition:opacity .2s,color .2s;position:relative;padding-bottom:3px}
+.hnav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.hnav-links a:hover,.hnav-links a.cur{opacity:1;color:var(--gold)}
+.hnav-links a:hover::after,.hnav-links a.cur::after{transform:scaleX(1)}
+
+/* ── PAGE HERO ── */
+.page-hero{position:relative;height:70vh;min-height:460px;display:flex;align-items:flex-end;padding:0 6vw 5rem;overflow:hidden}
+/* GAMBAR LATAR BELAKANG DIUBAH DISINI */
+.ph-img{position:absolute;inset:0;background:url('manfaat_background.jpg') center/cover no-repeat;filter:brightness(0.95) saturate(0.6)}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(255,255,255,1) 0%,rgba(255,255,255,.8) 50%,transparent 100%)}
+.ph-content{position:relative;z-index:1;max-width:800px}
+.ph-num{font-family:'Playfair Display',serif;font-size:7rem;font-weight:700;color:var(--gold);opacity:.15;line-height:1;margin-bottom:-1.5rem;user-select:none}
+.ph-tag{font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;animation:fadeUp .6s ease both}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1.1;animation:fadeUp .8s ease .1s both;color:var(--cream)}
+.ph-h1 em{color:var(--gold);font-style:italic;font-weight:400}
+.ph-sub{font-size:1rem;color:var(--muted);margin-top:1rem;max-width:600px;line-height:1.7;animation:fadeUp .9s ease .2s both}
+
+/* ── MAIN ── */
+.main-wrap{max-width:1200px;margin:0 auto;padding:8rem 6vw}
+
+.section-intro{display:grid;grid-template-columns:1fr 1.8fr;gap:7rem;align-items:start;margin-bottom:6rem}
+.si-tag{font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12rem}
+.si-h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:600;line-height:1.25}
+.si-rule{width:48px;height:2px;background:var(--gold);margin:1.8rem 0}
+.si-p{font-size:.92rem;color:var(--muted);line-height:1.9;margin-bottom:1.2rem}
+
+/* BENEFIT GRID */
+.benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:8rem}
+.benefit-card{background:var(--navy);padding:2.5rem 2.2rem;transition:background .3s;position:relative;overflow:hidden;cursor:default}
+.benefit-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.benefit-card:hover{background:rgba(27,138,68,.04)}
+.benefit-card:hover::before{transform:scaleX(1)}
+
+.bc-icon{font-size:2rem;margin-bottom:1.2rem;display:block;line-height:1}
+.bc-num{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.9;margin-bottom:.6rem}
+.bc-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;margin-bottom:.8rem;line-height:1.35;color:var(--cream)}
+.bc-desc{font-size:.82rem;color:var(--muted);line-height:1.7}
+
+/* FEATURED BENEFIT */
+.benefit-featured{background:var(--blue);border:1px solid var(--border);padding:4rem;display:grid;grid-template-columns:1fr 2fr;gap:5rem;align-items:center;margin-bottom:8rem}
+.bf-num{font-family:'Playfair Display',serif;font-size:5rem;font-weight:700;color:var(--gold);line-height:1;opacity:.25}
+.bf-label{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.bf-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:600;margin-bottom:1.2rem;line-height:1.3}
+.bf-desc{font-size:.9rem;color:var(--muted);line-height:1.9}
+.bf-desc strong{color:var(--gold)}
+
+/* PHOTO STRIP */
+.photo-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;height:320px;margin-bottom:8rem;background:var(--border);border:1px solid var(--border)}
+.ps-cell{overflow:hidden;position:relative}
+.ps-cell img{width:100%;height:100%;object-fit:cover;filter:brightness(0.9) saturate(0.85);transition:transform .6s,filter .5s}
+.ps-cell:hover img{transform:scale(1.06);filter:brightness(1)}
+.ps-label{position:absolute;bottom:0;left:0;right:0;padding:.8rem 1.2rem;background:rgba(255,255,255,.9);font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--cream)}
+
+/* BOTTOM NAV */
+.bottom-nav{display:flex;align-items:center;justify-content:space-between;padding:4rem 0 2rem;border-top:1px solid var(--border);margin-top:2rem}
+.bn-pos{font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.5rem;transition:all .3s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-solid{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:#ffffff;text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.8rem;transition:all .3s}
+.btn-solid:hover{background:var(--gold2)}
+.nav-group{display:flex;gap:1rem}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.26s}.d3{transition-delay:.4s}.d4{transition-delay:.54s}
+
+/* ══════════ MOBILE RESPONSIVE ══════════ */
+@media(max-width:900px){.hnav-links{gap:1.5rem}}
+@media(max-width:768px){
+  .hnav{transform:none!important;height:auto;min-height:58px;padding:.85rem 1.2rem;flex-wrap:wrap}
+  .hnav-brand{flex:1;min-width:0}
+  .hamburger{display:flex!important}
+  .hnav-links{display:none!important;width:100%;flex-direction:column;gap:0;padding:.5rem 0 .3rem;border-top:1px solid var(--border);margin-top:.75rem}
+  .hnav-links.mob-open{display:flex!important}
+  .hnav-links li{border-bottom:1px solid rgba(27,138,68,.12);width:100%}
+  .hnav-links a{display:block;padding:.75rem .2rem;opacity:.75;font-size:.75rem}
+  .hnav-links a::after{display:none}
+  .hnav-links a.cur{opacity:1;color:var(--gold)}
+  .page-hero{height:52vh;min-height:320px;padding:0 1.5rem 3rem}
+  .ph-num{font-size:4rem;margin-bottom:-1rem}
+  .ph-h1{font-size:clamp(1.8rem,7vw,2.8rem)!important}
+  
+  .main-wrap {padding: 4rem 1.5rem}
+  .section-intro {grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 4rem}
+  .benefit-grid {grid-template-columns: 1fr}
+  .benefit-featured {grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; text-align: center}
+  .bf-num {margin-bottom: -1rem}
+  
+  .photo-strip {grid-template-columns: 1fr; height: auto; gap: 2px}
+  .ps-cell {height: 200px}
+  
+  .bottom-nav{flex-direction:column;gap:1.5rem;align-items:stretch;padding:3rem 0 2rem}
+  .nav-group{flex-wrap:wrap;justify-content:center}
+  .btn-ghost,.btn-solid{justify-content:center;text-align:center;width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav class="hnav" id="hnav">
+  <div class="hnav-brand">
+    <a href="index.html" class="portal-link">← Portal</a>
+    <span class="hnav-logo">Anti-Car Urbanism</span>
+  </div>
+  <button id="hamburger" class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="hnav-links">
+    <li><a href="anticar_home.html">Beranda</a></li>
+    <li><a href="anticar_sejarah.html">Sejarah</a></li>
+    <li><a href="anticar_misconceptions.html">Misconceptions</a></li>
+    <li><a href="anticar_manfaat.html" class="cur">Manfaat</a></li>
+    <li><a href="anticar_aplikasi.html">Aplikasi</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="ph-img"></div>
+  <div class="ph-overlay"></div>
+  <div class="ph-content">
+    <div class="ph-num">03</div>
+    <div class="ph-tag">Keuntungan Nyata</div>
+    <h1 class="ph-h1">Manfaat <em>Anti-Car</em><br>Urbanism</h1>
+    <p class="ph-sub">Ada banyak keuntungan konkret bagi kota apabila perencanaan kotanya tidak berfokus pada mobil. Dari kesehatan hingga ekonomi — semuanya meningkat.</p>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <div class="section-intro rev">
+    <div>
+      <div class="si-tag">10 Manfaat Utama</div>
+      <h2 class="si-h2">Mengapa<br>Anti-Car<br>Lebih Baik?</h2>
+      <div class="si-rule"></div>
+    </div>
+    <div>
+      <p class="si-p">Kota yang tidak berfokus pada kendaraan bermotor memberikan dampak positif yang luas — bukan hanya pada lingkungan, tetapi juga pada kesehatan masyarakat, ekonomi lokal, keamanan jalan, dan kualitas hidup secara keseluruhan.</p>
+      <p class="si-p">Setiap manfaat di bawah ini adalah hasil nyata yang telah dibuktikan oleh kota-kota di seluruh dunia yang telah mengadopsi pendekatan anti-car urbanism.</p>
+    </div>
+  </div>
+
+  <div class="benefit-grid">
+    <div class="benefit-card rev">
+      <span class="bc-icon">🚌</span>
+      <div class="bc-num">Manfaat 01</div>
+      <div class="bc-title">Pilihan Transportasi Lebih Banyak</div>
+      <p class="bc-desc">Penduduk dapat memilih moda transportasi yang ingin digunakan — bukan hanya terpaksa bergantung pada mobil pribadi saja.</p>
+    </div>
+    <div class="benefit-card rev d1">
+      <span class="bc-icon">💰</span>
+      <div class="bc-num">Manfaat 02</div>
+      <div class="bc-title">Biaya Transportasi Menurun</div>
+      <p class="bc-desc">Penduduk tidak harus memiliki mobil untuk berpergian sehingga biaya hidup secara keseluruhan berkurang signifikan.</p>
+    </div>
+    <div class="benefit-card rev d2">
+      <span class="bc-icon">🛡️</span>
+      <div class="bc-num">Manfaat 03</div>
+      <div class="bc-title">Jalanan yang Lebih Aman</div>
+      <p class="bc-desc">Pejalan kaki dan pengguna jalan lainnya menikmati keamanan yang lebih baik karena tidak berada di bawah prioritas kendaraan bermotor.</p>
+    </div>
+    <div class="benefit-card rev">
+      <span class="bc-icon">🏘️</span>
+      <div class="bc-num">Manfaat 04</div>
+      <div class="bc-title">Fasilitas yang Lebih Dekat</div>
+      <p class="bc-desc">Tata kota anti-mobil mengedepankan konsep <em>"15-Minute City"</em> — semua kebutuhan harian dapat dicapai dalam 15 menit jalan kaki.</p>
+    </div>
+    <div class="benefit-card rev d1">
+      <span class="bc-icon">🏪</span>
+      <div class="bc-num">Manfaat 05</div>
+      <div class="bc-title">Mendukung Perkembangan UMKM</div>
+      <p class="bc-desc">Lingkungan padat pejalan kaki meningkatkan kunjungan spontan ke toko-toko lokal, mendorong pertumbuhan UMKM sekitar secara organik.</p>
+    </div>
+    <div class="benefit-card rev d2">
+      <span class="bc-icon">💪</span>
+      <div class="bc-num">Manfaat 06</div>
+      <div class="bc-title">Kesehatan Publik Meningkat</div>
+      <p class="bc-desc">Selain menurunkan polusi udara, aktivitas jalan kaki dan bersepeda menjadi rutinitas harian yang meningkatkan kesehatan fisik penduduk.</p>
+    </div>
+    <div class="benefit-card rev">
+      <span class="bc-icon">⚡</span>
+      <div class="bc-num">Manfaat 07</div>
+      <div class="bc-title">Turunnya Kemacetan</div>
+      <p class="bc-desc">Dengan pilihan transportasi yang lebih banyak dan berkualitas, lebih sedikit orang yang memilih untuk menyetir kendaraan pribadi.</p>
+    </div>
+    <div class="benefit-card rev d1">
+      <span class="bc-icon">🧒</span>
+      <div class="bc-num">Manfaat 08</div>
+      <div class="bc-title">Kemandirian Anak &amp; Remaja</div>
+      <p class="bc-desc">Anak dan remaja dapat bermain di luar dan bepergian sendiri karena jalanan lebih aman — tidak lagi wajib disupirkan oleh orang tua.</p>
+    </div>
+    <div class="benefit-card rev d2">
+      <span class="bc-icon">📈</span>
+      <div class="bc-num">Manfaat 09</div>
+      <div class="bc-title">Produktivitas Meningkat</div>
+      <p class="bc-desc">Penghematan waktu dari transportasi publik yang efektif dan minimnya kemacetan mendorong produktivitas individu dan kota secara keseluruhan.</p>
+    </div>
+  </div>
+
+  <div class="benefit-featured rev">
+    <div>
+      <div class="bf-num">10</div>
+    </div>
+    <div>
+      <div class="bf-label">Manfaat 10 · Ekonomi</div>
+      <h3 class="bf-title">Pendapatan Pajak &amp; Keuntungan Ekonomi Tinggi</h3>
+      <p class="bf-desc">Wilayah yang padat aktivitas — ciri khas kota anti-mobil — menghasilkan <strong>pendapatan pajak per km² yang jauh lebih tinggi</strong> dibandingkan kota car-centric. Return on Investment (ROI) infrastruktur meningkat karena setiap meter persegi tanah digunakan secara produktif, bukan untuk parkir yang tidak menghasilkan nilai ekonomi.</p>
+    </div>
+  </div>
+
+  <div class="photo-strip rev">
+    <div class="ps-cell">
+      <img src="manfaat_infrastruktur sepeda.jpg" alt="Infrastruktur Sepeda">
+      <div class="ps-label">Infrastruktur Sepeda</div>
+    </div>
+    <div class="ps-cell">
+      <img src="manfaat_infrastrukturpejalankaki.jpg" alt="Pedestrians">
+      <div class="ps-label">Ruang Pejalan Kaki</div>
+    </div>
+    <div class="ps-cell">
+      <img src="manfaat_transportasiumum.jpeg" alt="Public Transport">
+      <div class="ps-label">Transportasi Publik</div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-group">
+      <a href="index.html" class="btn-ghost">← Portal</a>
+      <a href="anticar_misconceptions.html" class="btn-ghost">← Misconceptions</a>
+    </div>
+    <span class="bn-pos">03 / 04 · Manfaat</span>
+    <a href="anticar_aplikasi.html" class="btn-solid">Aplikasi →</a>
+  </nav>
+</main>
+
+<footer style="padding:3rem 6vw;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.75rem;font-weight:500;letter-spacing:.05em">
+  <span>Anti-Car Urbanism · Manfaat</span>
+  <span style="color:var(--gold)">Cities are for people.</span>
+</footer>
+
+<script>
+const nav=document.getElementById('hnav');
+let hideT;
+const showNav=()=>{clearTimeout(hideT);nav.classList.add('show')};
+const delayHide=()=>{clearTimeout(hideT);hideT=setTimeout(()=>nav.classList.remove('show'),1900)};
+document.addEventListener('mousemove',e=>{if(e.clientY<80)showNav();else if(!nav.matches(':hover'))delayHide()});
+nav.addEventListener('mouseenter',showNav);
+nav.addEventListener('mouseleave',delayHide);
+
+// Mobile Hamburger toggle
+const ham=document.getElementById('hamburger');
+if(ham){ham.addEventListener('click',function(){nav.querySelector('.hnav-links').classList.toggle('mob-open');ham.classList.toggle('active');nav.classList.add('show')});}
+function syncNav(){nav.classList.toggle('show',window.innerWidth<=768);}
+syncNav();window.addEventListener('resize',syncNav);
+
+const ro=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>

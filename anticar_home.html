@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anti-Car Urbanism — Beranda</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy: #ffffff;         /* Background utama: Putih */
+  --blue: #f2f8f5;         /* Background sekunder: Hijau sangat muda */
+  --gold: #1b8a44;         /* Aksen utama: Hijau */
+  --gold2: #146b34;        /* Aksen hover: Hijau gelap */
+  --cream: #0c1f13;        /* Teks utama: Hijau sangat gelap / nyaris hitam */
+  --muted: rgba(12,31,19,0.65); /* Teks redup */
+  --border: rgba(27,138,68,0.25); /* Garis tepi hijau transparan */
+  --green: #1b8a44;
+  --red: #d32f2f;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+/* ── HOVER NAV ── */
+.hnav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(255,255,255,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 5vw;height:66px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.hnav.show{transform:translateY(0)}
+.hnav-brand{display:flex;align-items:center;gap:1.2rem}
+.portal-link{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.65;text-decoration:none;padding-right:1.2rem;border-right:1px solid var(--border);transition:opacity .2s;white-space:nowrap}
+.portal-link:hover{opacity:1}
+.hnav-logo{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--gold);letter-spacing:.05em;white-space:nowrap}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.45rem;background:none;border:none;flex-shrink:0;outline:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:transform .3s,opacity .3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+.hnav-links{display:flex;gap:2rem;list-style:none}
+.hnav-links a{color:var(--cream);text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;opacity:.6;transition:opacity .2s,color .2s;position:relative;padding-bottom:3px}
+.hnav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.hnav-links a:hover,.hnav-links a.cur{opacity:1;color:var(--gold)}
+.hnav-links a:hover::after,.hnav-links a.cur::after{transform:scaleX(1)}
+
+/* ── HERO ── */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 7rem;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=80') center/cover no-repeat;filter:brightness(0.95) saturate(0.6);transform:scale(1.07);animation:zoomOut 14s ease forwards}
+@keyframes zoomOut{to{transform:scale(1.01)}}
+.hero-grad{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(255,255,255,.8) 0%, rgba(255,255,255,1) 80%)}
+.hero-content{position:relative;z-index:1;max-width:1080px;width:100%}
+.pill{display:inline-flex;align-items:center;gap:.55rem;border:1px solid var(--border);color:var(--gold);font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;padding:.42rem 1.4rem;margin-bottom:2.4rem;animation:fadeUp .8s ease both}
+.pill::before{content:'◆';font-size:.45rem}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,7vw,6.5rem);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.5rem;animation:fadeUp 1s ease .15s both;color:var(--cream)}
+.hero-h1 em{color:var(--gold);font-style:italic;font-weight:400}
+.hero-p{font-size:1.05rem;line-height:1.85;color:var(--muted);max-width:580px;margin:0 auto 2rem;animation:fadeUp 1s ease .3s both}
+.quote-block{border-left:2px solid var(--gold);text-align:left;padding:.8rem 1.8rem;margin:0 auto 3rem;max-width:580px;animation:fadeUp 1s ease .45s both}
+.quote-text{font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:.5rem}
+.quote-attr{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* CARDS GRID */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);animation:fadeUp 1s ease .6s both;text-align:left}
+.card{background:rgba(255,255,255,.92);padding:2.2rem 2rem;text-decoration:none;color:var(--cream);display:flex;flex-direction:column;gap:.5rem;transition:background .35s;position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.card:hover{background:rgba(27,138,68,.06)}
+.card:hover::after{transform:scaleX(1)}
+.card-no{font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.8}
+.card-ttl{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;margin-top:.2rem;line-height:1.3}
+.card-dsc{font-size:.8rem;line-height:1.65;color:var(--muted);flex:1}
+.card-arr{font-size:1rem;color:var(--gold);transition:transform .3s;margin-top:.5rem;display:inline-block}
+.card:hover .card-arr{transform:translateX(6px)}
+
+/* SCROLL CARET */
+.caret{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--muted);font-weight:600;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;animation:fadeIn 2.5s ease 1.8s both}
+.caret-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(12,31,19,.4),transparent);animation:caretPulse 2.5s ease infinite}
+@keyframes caretPulse{0%,100%{transform:scaleY(1);opacity:.6}50%{transform:scaleY(.5);opacity:.2}}
+
+/* ── MENGAPA SECTION ── */
+.why-section{padding:9rem 6vw;display:grid;grid-template-columns:1fr 1.7fr;gap:8rem;align-items:start;max-width:1200px;margin:0 auto}
+.ws-tag{font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.ws-h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:600;line-height:1.25}
+.ws-rule{width:56px;height:2px;background:var(--gold);margin:2rem 0}
+.ws-body{font-size:.95rem;line-height:1.95;color:var(--muted)}
+.ws-body+.ws-body{margin-top:1.2rem}
+.ws-body strong{color:var(--gold)}
+
+/* PRIORITY LIST */
+.prio-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:.8rem}
+.prio-item{display:flex;align-items:center;gap:1rem;font-size:.88rem;font-weight:500;color:var(--muted);border:1px solid var(--border);padding:.9rem 1.2rem;transition:border-color .3s,color .3s,background .3s}
+.prio-item:hover{border-color:var(--gold);color:var(--cream);background:rgba(27,138,68,.03)}
+.prio-icon{font-size:1.1rem;flex-shrink:0}
+
+/* ── COMPARISON TABLE ── */
+.compare-outer{padding:0 6vw 9rem;max-width:1200px;margin:0 auto}
+.compare-header-text{margin-bottom:4rem}
+.ct-tag{font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.ct-h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;line-height:1.25}
+.ct-rule{width:48px;height:2px;background:var(--gold);margin:1.5rem 0 1rem}
+.ct-p{font-size:.88rem;color:var(--muted);line-height:1.7;max-width:600px}
+
+.compare-table{border:1px solid var(--border);overflow:hidden}
+.ctr-head{display:grid;grid-template-columns:1.5fr 1fr 1fr;background:var(--blue)}
+.ctr-head > div{padding:1.8rem 2rem;border-bottom:1px solid var(--border)}
+.city-flag{font-size:1.8rem;margin-bottom:.5rem}
+.city-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;margin-bottom:.3rem}
+.city-type{font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.city-type.bad{color:var(--muted)}
+.city-type.good{color:var(--gold)}
+.city-label-head{display:flex;align-items:center;font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+.ctr-row{display:grid;grid-template-columns:1.5fr 1fr 1fr;border-top:1px solid var(--border);transition:background .2s;background:var(--navy)}
+.ctr-row:hover{background:rgba(27,138,68,.04)}
+.ctr-metric{padding:1.3rem 2rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;border-right:1px solid var(--border)}
+.ctr-val{padding:1.3rem 2rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;display:flex;align-items:center}
+.ctr-val.austin{color:var(--muted)}
+.ctr-val.ams{color:var(--gold)}
+.ctr-val.ams::before{content:'▲';font-size:.55rem;margin-right:.5rem;vertical-align:middle;color:var(--gold);opacity:.85}
+.ctr-val.ams.lower::before{content:'▼';color:var(--gold)}
+.ctr-val.ams.equal::before{content:'—';color:var(--muted);font-size:.8rem}
+
+/* ── FOOTER ── */
+footer{padding:3rem 6vw;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.75rem;font-weight:500;letter-spacing:.05em}
+
+/* BOTTOM NAV */
+.bottom-nav{display:flex;align-items:center;justify-content:space-between;padding:4rem 6vw 2rem;border-top:1px solid var(--border);max-width:1200px;margin:0 auto}
+.bn-pos{font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.5rem;transition:all .3s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn-solid{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:#ffffff;text-decoration:none;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.8rem;transition:all .3s}
+.btn-solid:hover{background:var(--gold2)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.36s}
+
+/* ══════════ MOBILE RESPONSIVE ══════════ */
+@media(max-width:900px){.hnav-links{gap:1.5rem}}
+@media(max-width:768px){
+  .hnav{transform:none!important;height:auto;min-height:58px;padding:.85rem 1.2rem;flex-wrap:wrap}
+  .hnav-brand{flex:1;min-width:0}
+  .hamburger{display:flex!important}
+  .hnav-links{display:none!important;width:100%;flex-direction:column;gap:0;padding:.5rem 0 .3rem;border-top:1px solid var(--border);margin-top:.75rem}
+  .hnav-links.mob-open{display:flex!important}
+  .hnav-links li{border-bottom:1px solid rgba(27,138,68,.12);width:100%}
+  .hnav-links a{display:block;padding:.75rem .2rem;opacity:.75;font-size:.75rem}
+  .hnav-links a::after{display:none}
+  .hnav-links a.cur{opacity:1;color:var(--gold)}
+  
+  .hero {padding: 6rem 1.5rem 4rem}
+  .hero-h1 {font-size: clamp(2.2rem, 10vw, 3.5rem)!important}
+  .cards {grid-template-columns: 1fr}
+  .why-section {grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem}
+  .compare-outer {padding: 0 1.5rem 4rem}
+  
+  .ctr-head, .ctr-row {grid-template-columns: 1fr 1fr 1fr; font-size: 0.65rem}
+  .ctr-val {padding: 1rem 0.5rem; font-size: 0.8rem}
+  .ctr-metric {padding: 1rem 0.5rem; font-size: 0.55rem}
+  .ctr-head > div {padding: 1rem 0.5rem}
+  
+  .bottom-nav{flex-direction:column;gap:1.5rem;align-items:stretch;padding:3rem 0 2rem}
+  .btn-ghost,.btn-solid{justify-content:center;text-align:center;width:100%}
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="hnav" id="hnav">
+  <div class="hnav-brand">
+    <a href="index.html" class="portal-link">← Portal</a>
+    <span class="hnav-logo">Anti-Car Urbanism</span>
+  </div>
+  <button id="hamburger" class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="hnav-links">
+    <li><a href="anticar_home.html" class="cur">Beranda</a></li>
+    <li><a href="anticar_sejarah.html">Sejarah</a></li>
+    <li><a href="anticar_misconceptions.html">Misconceptions</a></li>
+    <li><a href="anticar_manfaat.html">Manfaat</a></li>
+    <li><a href="anticar_aplikasi.html">Aplikasi</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-content">
+    <div class="pill">Perencanaan Kota · Urban Planning</div>
+    <h1 class="hero-h1"><em>Anti-Car</em><br>Urbanism</h1>
+    <p class="hero-p">
+      Perencanaan kota yang berupaya untuk mengurangi atau menghilangkan dominasi 
+      kendaraan bermotor pribadi dalam kota demi kehidupan yang lebih manusiawi.
+    </p>
+    <div class="quote-block">
+      <div class="quote-text">"Cities are for people, not cars."</div>
+      <div class="quote-attr">— Jan Gehl, Urban Designer &amp; Architect</div>
+    </div>
+    <div class="cards">
+      <a href="anticar_sejarah.html" class="card">
+        <span class="card-no">01 — Sejarah</span>
+        <div class="card-ttl">Sejarah</div>
+        <p class="card-dsc">Asal usul anti-car urbanism dari awal mula kota hingga pergerakan modern saat ini.</p>
+        <span class="card-arr">→</span>
+      </a>
+      <a href="anticar_misconceptions.html" class="card">
+        <span class="card-no">02 — Misconceptions</span>
+        <div class="card-ttl">Misconceptions</div>
+        <p class="card-dsc">Kesalahpahaman umum tentang perencanaan kota yang dibongkar satu per satu.</p>
+        <span class="card-arr">→</span>
+      </a>
+      <a href="anticar_manfaat.html" class="card">
+        <span class="card-no">03 — Manfaat</span>
+        <div class="card-ttl">Manfaat</div>
+        <p class="card-dsc">Keuntungan-keuntungan nyata dari penerapan perencanaan kota anti-mobil.</p>
+        <span class="card-arr">→</span>
+      </a>
+      <a href="anticar_aplikasi.html" class="card">
+        <span class="card-no">04 — Aplikasi</span>
+        <div class="card-ttl">Aplikasi</div>
+        <p class="card-dsc">Solusi-solusi konkret anti-mobil yang dapat diterapkan dalam tata kota.</p>
+        <span class="card-arr">→</span>
+      </a>
+    </div>
+  </div>
+  <div class="caret"><div class="caret-line"></div><span>Scroll</span></div>
+</section>
+
+<section class="why-section">
+  <div>
+    <div class="ws-tag rev">Mengapa?</div>
+    <h2 class="ws-h2 rev d1">Manusia<br>di Atas<br>Kendaraan</h2>
+    <div class="ws-rule rev d2"></div>
+  </div>
+  <div>
+    <p class="ws-body rev d1">
+      Perencanaan kota yang <strong>fokus pada mobil</strong> cenderung memprioritaskan pergerakan kendaraan di atas keamanan, kenyamanan, biaya, lingkungan hidup, kesehatan, dan kebebasan penduduk di tempat.
+    </p>
+    <div class="prio-list rev d2">
+      <div class="prio-item"><span class="prio-icon">🛡️</span> Keamanan pejalan kaki &amp; pengendara</div>
+      <div class="prio-item"><span class="prio-icon">🌿</span> Lingkungan hidup &amp; kualitas udara</div>
+      <div class="prio-item"><span class="prio-icon">💰</span> Biaya hidup &amp; transportasi penduduk</div>
+      <div class="prio-item"><span class="prio-icon">🏃</span> Kesehatan fisik &amp; mental masyarakat</div>
+      <div class="prio-item"><span class="prio-icon">🗽</span> Kebebasan mobilitas tanpa kepemilikan mobil</div>
+    </div>
+  </div>
+</section>
+
+<div class="compare-outer">
+  <div class="compare-header-text rev">
+    <div class="ct-tag">Bukti Nyata</div>
+    <h2 class="ct-h2">Kota Car-Centric vs Kota Anti-Car</h2>
+    <div class="ct-rule"></div>
+    <p class="ct-p">Dengan populasi yang hampir identik, dua kota menunjukkan hasil yang sangat berbeda tergantung pada pendekatan perencanaannya.</p>
+  </div>
+  <div class="compare-table rev d1">
+    <div class="ctr-head">
+      <div class="city-label-head">Metrik Perbandingan</div>
+      <div>
+        <div class="city-flag">🇺🇸</div>
+        <div class="city-name">Austin, AS</div>
+        <div class="city-type bad">Car-Centric</div>
+      </div>
+      <div>
+        <div class="city-flag">🇳🇱</div>
+        <div class="city-name">Amsterdam, Belanda</div>
+        <div class="city-type good">Anti-Car ◆</div>
+      </div>
+    </div>
+    <div class="ctr-row">
+      <div class="ctr-metric">Area Kota</div>
+      <div class="ctr-val austin">11.099,91 km²</div>
+      <div class="ctr-val ams lower">2.580,26 km²</div>
+    </div>
+    <div class="ctr-row">
+      <div class="ctr-metric">Populasi</div>
+      <div class="ctr-val austin">2.550.637</div>
+      <div class="ctr-val ams equal">2.480.394</div>
+    </div>
+    <div class="ctr-row">
+      <div class="ctr-metric">Densitas</div>
+      <div class="ctr-val austin">230 / km²</div>
+      <div class="ctr-val ams">961 / km²</div>
+    </div>
+    <div class="ctr-row">
+      <div class="ctr-metric">Polusi Udara</div>
+      <div class="ctr-val austin">4,8 ton CO₂ / kapita</div>
+      <div class="ctr-val ams lower">0,6 ton CO₂ / kapita</div>
+    </div>
+    <div class="ctr-row">
+      <div class="ctr-metric">Produktivitas</div>
+      <div class="ctr-val austin">22,35 juta USD / km²</div>
+      <div class="ctr-val ams">90,04 juta USD / km²</div>
+    </div>
+    <div class="ctr-row">
+      <div class="ctr-metric">Biaya Perawatan</div>
+      <div class="ctr-val austin">~1,4 miliar USD</div>
+      <div class="ctr-val ams lower">~780 juta USD</div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="index.html" class="btn-ghost">← Portal</a>
+  <span class="bn-pos">Beranda · Anti-Car</span>
+  <a href="anticar_sejarah.html" class="btn-solid">Sejarah →</a>
+</nav>
+
+<footer>
+  <span>Anti-Car Urbanism · Sumber: Perbandingan Data Kota</span>
+  <span style="color:var(--gold)">Cities are for people.</span>
+</footer>
+
+<script>
+const nav=document.getElementById('hnav');
+let hideT;
+const showNav=()=>{clearTimeout(hideT);nav.classList.add('show')};
+const delayHide=()=>{clearTimeout(hideT);hideT=setTimeout(()=>nav.classList.remove('show'),1900)};
+document.addEventListener('mousemove',e=>{if(e.clientY<80)showNav();else if(!nav.matches(':hover'))delayHide()});
+nav.addEventListener('mouseenter',showNav);
+nav.addEventListener('mouseleave',delayHide);
+
+const ham=document.getElementById('hamburger');
+if(ham){ham.addEventListener('click',function(){nav.querySelector('.hnav-links').classList.toggle('mob-open');ham.classList.toggle('active');nav.classList.add('show')});}
+function syncNav(){nav.classList.toggle('show',window.innerWidth<=768);}
+syncNav();window.addEventListener('resize',syncNav);
+
+const ro=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.1});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
