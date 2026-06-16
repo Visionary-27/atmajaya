@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUNDAM — Koleksi & Etalase</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+/* PALET MONOKROM */
+:root{
+  --navy:#000000;--blue:#111111;
+  --gold:#FFFFFF;--gold2:#CCCCCC;
+  --cream:#E0E0E0;--muted:#888888;
+  --border:#333333;--accent:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.45rem;background:none;border:none;flex-shrink:0;outline:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:transform .3s,opacity .3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+.hnav{position:fixed;top:0;left:0;right:0;z-index:9000;background:rgba(0,0,0,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 5vw;height:66px;display:flex;align-items:center;justify-content:space-between;transform:translateY(-100%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.hnav.show{transform:translateY(0)}
+.hnav-brand{display:flex;align-items:center;gap:1.2rem}
+.portal-link{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);opacity:.65;text-decoration:none;padding-right:1.2rem;border-right:1px solid var(--border);transition:opacity .2s;white-space:nowrap}
+.portal-link:hover{opacity:1}
+.hnav-logo{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--gold);letter-spacing:.08em;white-space:nowrap}
+.hnav-links{display:flex;gap:2rem;list-style:none}
+.hnav-links a{color:var(--cream);text-decoration:none;font-size:.72rem;font-weight:500;letter-spacing:.11em;text-transform:uppercase;opacity:.6;transition:opacity .2s,color .2s;position:relative;padding-bottom:3px}
+.hnav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s}
+.hnav-links a:hover,.hnav-links a.cur{opacity:1;color:var(--gold)}
+.hnav-links a:hover::after,.hnav-links a.cur::after{transform:scaleX(1)}
+
+.page-hero{position:relative;height:60vh;min-height:400px;display:flex;align-items:flex-end;padding:0 6vw 5rem;overflow:hidden}
+.ph-img{position:absolute;inset:0;background:url('gundam_bg.jfif') center/cover no-repeat;filter:brightness(.18) saturate(0)}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,.3) 60%,transparent 100%)}
+.ph-content{position:relative;z-index:1;max-width:800px}
+.ph-num{font-family:'Playfair Display',serif;font-size:7rem;font-weight:700;color:var(--gold);opacity:.1;line-height:1;margin-bottom:-1.5rem;user-select:none}
+.ph-tag{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;animation:fadeUp .6s ease both}
+.ph-h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1.1;animation:fadeUp .8s ease .1s both}
+.ph-h1 em{color:var(--gold);font-style:italic;font-weight:400}
+.ph-sub{font-size:1rem;color:var(--muted);margin-top:1rem;max-width:600px;line-height:1.7;animation:fadeUp .9s ease .2s both}
+
+.main-wrap{max-width:1200px;margin:0 auto;padding:6rem 6vw}
+.section-intro{margin-bottom:4rem;text-align:center;max-width:700px;margin-left:auto;margin-right:auto}
+.si-tag{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.si-h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:600;line-height:1.25}
+.si-rule{width:48px;height:1px;background:var(--gold);margin:1.5rem auto}
+.si-p{font-size:.92rem;color:var(--muted);line-height:1.9}
+
+/* SHOP GRID LAYOUT */
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2.5rem;margin-bottom:7rem}
+.shop-card{background:var(--blue);border:1px solid var(--border);display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s,border-color .4s;position:relative;overflow:hidden}
+.shop-card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(0,0,0,0.9);border-color:var(--gold)}
+.sc-img-wrap{position:relative;overflow:hidden;border-bottom:1px solid var(--border);height:280px;background:var(--navy)}
+
+/* Background Image Adjustments */
+.sc-img-wrap img.bg-img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.65) grayscale(100%);transition:transform .6s,filter .4s}
+.shop-card:hover .sc-img-wrap img.bg-img{transform:scale(1.05);filter:brightness(.2) grayscale(100%)}
+
+/* Hover Logo Adjustments */
+.hover-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  max-width: 60%;
+  max-height: 60%;
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+.shop-card:hover .hover-logo {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.sc-badge{position:absolute;top:1rem;left:1rem;background:var(--navy);border:1px solid var(--gold);color:var(--gold);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .8rem;z-index:3}
+.sc-body{padding:2rem 1.8rem;flex:1;display:flex;flex-direction:column}
+.sc-grade{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem}
+.sc-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;margin-bottom:.8rem;line-height:1.35;color:var(--cream)}
+.sc-desc{font-size:.85rem;color:var(--muted);line-height:1.7;margin-bottom:1.8rem;flex:1}
+.sc-footer{display:flex;align-items:center;margin-top:auto;border-top:1px solid var(--border);padding-top:1.5rem}
+.sc-price{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold)}
+
+.bottom-nav{display:flex;align-items:center;justify-content:space-between;padding:4rem 0 2rem;border-top:1px solid var(--border);margin-top:2rem}
+.bn-pos{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.btn-ghost{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--border);color:var(--cream);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.5rem;transition:all .3s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--navy);background:var(--gold)}
+.nav-group{display:flex;gap:1rem}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.26s}.d3{transition-delay:.4s}
+
+@media(max-width:900px){.hnav-links{gap:1.4rem}}
+@media(max-width:768px){
+  .hnav{transform:none!important;height:auto;min-height:58px;padding:.85rem 1.2rem;flex-wrap:wrap}
+  .hnav-brand{flex:1;min-width:0}.hamburger{display:flex!important}
+  .hnav-links{display:none!important;width:100%;flex-direction:column;gap:0;padding:.5rem 0 .3rem;border-top:1px solid var(--border);margin-top:.75rem}
+  .hnav-links.mob-open{display:flex!important}
+  .hnav-links li{border-bottom:1px solid rgba(255,255,255,.15)}
+  .hnav-links a{display:block;padding:.75rem .2rem;opacity:.75;font-size:.75rem}
+  .hnav-links a::after{display:none}.hnav-links a.cur{opacity:1;color:var(--gold)}
+  .page-hero{height:45vh;min-height:300px;padding:0 1.5rem 3rem}
+  .ph-num{font-size:4rem;margin-bottom:-1rem}
+  .ph-h1{font-size:clamp(1.8rem,7vw,2.8rem)!important}.ph-sub{font-size:.85rem}
+  .main-wrap{padding:4rem 1.5rem}
+  .shop-grid{grid-template-columns:1fr;gap:2rem}
+  .sc-img-wrap{height:240px}
+  .bottom-nav{flex-direction:column;gap:1rem;align-items:stretch}
+  .nav-group{flex-wrap:wrap}.btn-ghost{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav class="hnav" id="hnav">
+  <div class="hnav-brand">
+    <a href="index.html" class="portal-link">← Portal</a>
+    <span class="hnav-logo">GUNDAM</span>
+  </div>
+  <button id="hamburger" class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="hnav-links">
+    <li><a href="gundam_home.html">Beranda</a></li>
+    <li><a href="gundam_timeline1.html">Timeline UC</a></li>
+    <li><a href="gundam_mobilesuit.html">Mobile Suit</a></li>
+    <li><a href="gundam_shop.html" class="cur">Koleksi</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="ph-img"></div>
+  <div class="ph-overlay"></div>
+  <div class="ph-content">
+    <div class="ph-num">04</div>
+    <div class="ph-tag">Jenis Koleksi Gundam</div>
+    <h1 class="ph-h1">Koleksi <em>Tersedia</em></h1>
+    <p class="ph-sub">Ada banyak jenis gundam yang bisa dikoleksi. Mulai dari segi perbedaan detail dan juga skala. Bawa pulang mahakarya teknik fiksi ilmiah ini.</p>
+  </div>
+</header>
+
+<main class="main-wrap">
+
+  <div class="section-intro rev">
+    <div class="si-tag">[ Tingkat Skala & Kerumitan ]</div>
+    <h2 class="si-h2">Model Kit Unggulan</h2>
+    <div class="si-rule"></div>
+    <p class="si-p">Dari lini High Grade yang ramah pemula hingga detail presisi Perfect Grade. Temukan Mobile Suit favoritmu dan mulailah merakit legenda baru.</p>
+  </div>
+
+  <div class="shop-grid">
+    
+    <!-- HIGH GRADE -->
+    <div class="shop-card rev">
+      <div class="sc-img-wrap">
+        <span class="sc-badge">Standar</span>
+        <img class="bg-img" src="gundam_hg.jpg" alt="High Grade">
+        <img class="hover-logo" src="logo_hg.png" alt="HG Logo">
+      </div>
+      <div class="sc-body">
+        <div class="sc-grade">Skala 1:144</div>
+        <h3 class="sc-title">High Grade (HG)</h3>
+        <p class="sc-desc">Ini adalah grade standar dan paling populer. HG memiliki variasi Mobile Suit (robot) yang paling lengkap dari hampir seluruh seri Gundam. Cara merakitnya simpel namun proporsinya sudah sangat bagus dan proporsional. Kit HG modern memiliki artikulasi yang sangat baik dan pembagian warna yang memadai, meskipun sebagian besar tidak memiliki inner frame.</p>
+        <div class="sc-footer">
+          <span class="sc-price">Rp 200.000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REAL GRADE -->
+    <div class="shop-card rev d1">
+      <div class="sc-img-wrap">
+        <span class="sc-badge">Detail Tinggi</span>
+        <img class="bg-img" src="gundam_rg.jpg" alt="Real Grade">
+        <img class="hover-logo" src="logo_rg.png" alt="RG Logo">
+      </div>
+      <div class="sc-body">
+        <div class="sc-grade">Skala 1:144</div>
+        <h3 class="sc-title">Real Grade (RG)</h3>
+        <p class="sc-desc">Membawa detail dan kerumitan kit ukuran besar ke dalam skala kecil. Skalanya sama dengan High Grade namun jauh lebih detail dan sulit. Part-nya sangat kecil dan banyak, sehingga membutuhkan ketelitian ekstra saat merakit. RG terkenal dengan Advanced MS Joint (kerangka dalam yang sudah semi-terakit) atau inner frame penuh seperti grade di atasnya. RG memiliki detail armor yang sangat realistis dan dilengkapi banyak stiker decal ala militer.</p>
+        <div class="sc-footer">
+          <span class="sc-price">Rp 400.000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MASTER GRADE -->
+    <div class="shop-card rev d2">
+      <div class="sc-img-wrap">
+        <span class="sc-badge">Menengah</span>
+        <img class="bg-img" src="gundam_mg.jfif" alt="Master Grade">
+        <img class="hover-logo" src="logo_mg.png" alt="MG Logo">
+      </div>
+      <div class="sc-body">
+        <div class="sc-grade">Skala 1:100</div>
+        <h3 class="sc-title">Master Grade (MG)</h3>
+        <p class="sc-desc">Memiliki ukuran yang lebih besar dari High Grade namun lebih kecil dari PG. MG difokuskan pada mekanisme internal. Kit ini memiliki inner frame yang utuh dari kepala hingga ujung kaki dengan detail piston dan mekanikal yang bisa bergerak. Pembagian warna (color separation) pada plastiknya sudah sangat akurat. Permukaan armornya lebih detail dari high grade namun tidak sedetail PG dan RG.</p>
+        <div class="sc-footer">
+          <span class="sc-price">Rp 600.000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MASTER GRADE EXTREME -->
+    <div class="shop-card rev">
+      <div class="sc-img-wrap">
+        <span class="sc-badge">Premium</span>
+        <img class="bg-img" src="gundam_mgex.jpg" alt="Master Grade EXTREME">
+        <img class="hover-logo" src="logo_mgex.png" alt="MGEX Logo">
+      </div>
+      <div class="sc-body">
+        <div class="sc-grade">Skala 1:100</div>
+        <h3 class="sc-title">Master Grade EXTREME (MGEX)</h3>
+        <p class="sc-desc">Enhanced version dari Master Grade Biasa. Kerumitan, jumlah komponen, dan harganya jauh di atas MG biasa. Contohnya, MGEX Unicorn Gundam memiliki sistem LED fleksibel yang menjalar ke seluruh tubuhnya, dan MGEX Strike Freedom berfokus pada inner frame dengan berbagai lapisan warna metalik yang ekstrem. MGEX membawa ranah ekstrim seperti Namanya ke kit MG yang biasanya tidak sedetail itu.</p>
+        <div class="sc-footer">
+          <span class="sc-price">Rp 1.200.000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERFECT GRADE -->
+    <div class="shop-card rev d1">
+      <div class="sc-img-wrap">
+        <span class="sc-badge">Ultimate</span>
+        <img class="bg-img" src="gundam_pg.jpg" alt="Perfect Grade">
+        <img class="hover-logo" src="logo_pg.png" alt="PG Logo">
+      </div>
+      <div class="sc-body">
+        <div class="sc-grade">Skala 1:60</div>
+        <h3 class="sc-title">Perfect Grade (PG)</h3>
+        <p class="sc-desc">Kasta tertinggi dalam dunia Gunpla reguler. Ukurannya sangat besar dan memberikan pengalaman merakit yang paling panjang dan memuaskan. Jumlah part bisa mencapai ratusan hingga lebih dari seribu. PG menampilkan model kit plastik terbaik dengan artikulasi jari yang bisa bergerak secara individual, armor yang bisa dibuka, inner frame yang sangat kompleks, dan biasanya sudah didesain untuk dipasangi sistem lampu LED.</p>
+        <div class="sc-footer">
+          <span class="sc-price">Rp 3.000.000</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPER DEFORMED -->
+    <div class="shop-card rev d2">
+      <div class="sc-img-wrap">
+        <span class="sc-badge">Pemula</span>
+        <img class="bg-img" src="gundam_sd.jpeg" alt="Super Deformed">
+        <img class="hover-logo" src="logo_sd.png" alt="SD Logo">
+      </div>
+      <div class="sc-body">
+        <div class="sc-grade">Non Scale</div>
+        <h3 class="sc-title">Super Deformed (SD)</h3>
+        <p class="sc-desc">Desainnya bergaya chibi (kepala besar, badan kecil dan proporsi lucu). Kit ini memiliki jumlah komponen (part) yang paling sedikit dan proses perakitan yang sangat mudah, membuatnya sempurna untuk pemula.</p>
+        <div class="sc-footer">
+          <span class="sc-price">Rp 100.000</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-group">
+      <a href="index.html" class="btn-ghost">← Portal</a>
+      <a href="gundam_mobilesuit.html" class="btn-ghost">← Mobile Suit</a>
+    </div>
+    <span class="bn-pos">04 / 04 · Koleksi</span>
+  </nav>
+
+</main>
+
+<script>
+const nav=document.getElementById('hnav');
+let hideT;
+const showNav=()=>{clearTimeout(hideT);nav.classList.add('show')};
+const delayHide=()=>{clearTimeout(hideT);hideT=setTimeout(()=>nav.classList.remove('show'),1900)};
+document.addEventListener('mousemove',e=>{if(e.clientY<80)showNav();else if(!nav.matches(':hover'))delayHide()});
+nav.addEventListener('mouseenter',showNav);nav.addEventListener('mouseleave',delayHide);
+const ham=document.getElementById('hamburger');
+if(ham){ham.addEventListener('click',function(){nav.querySelector('.hnav-links').classList.toggle('mob-open');ham.classList.toggle('active');nav.classList.add('show')});}
+function syncNav(){nav.classList.toggle('show',window.innerWidth<=768);}
+syncNav();window.addEventListener('resize',syncNav);
+const ro=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.05});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
